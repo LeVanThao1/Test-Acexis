@@ -176,7 +176,7 @@ const canvas = document.querySelector('canvas');
             // console.log(xuyentuong.checked);
             isXuyenTuong = xuyentuong.checked;
             if(isXuyenTuong) { 
-                id = setInterval(handleSnake,1000);
+                id = setInterval(handleSnake,time);
             }
             else {
                 id = setInterval(handleSnakeXuyenTuong,time);
