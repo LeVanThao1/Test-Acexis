@@ -126,6 +126,7 @@ const canvas = document.querySelector('canvas');
             ctx.clearRect(0,0,canvas.width,canvas.height);
             drawFood();
             snakeEatFood();
+            
             if(checkEnd()) {
                 alert('Bạn thua rồi .... Ahihi');
                 clearInterval(id);
@@ -135,14 +136,16 @@ const canvas = document.querySelector('canvas');
                 snake.x += snake.dx;
                 snake.y += snake.dy;
             }
+            
+            checkBien();
             snake.body.unshift({x: snake.x, y: snake.y});
             if(snake.body.length > snake.length) {
                 snake.body.pop();
             }
-            checkBien();
+            
+            chuyenHuong();
             
             drawSnake();
-            chuyenHuong();
         }
         const time = 1000;
         function handleSnakeXuyenTuong() {
@@ -173,7 +176,7 @@ const canvas = document.querySelector('canvas');
             // console.log(xuyentuong.checked);
             isXuyenTuong = xuyentuong.checked;
             if(isXuyenTuong) { 
-                id = setInterval(handleSnake,time);
+                id = setInterval(handleSnake,1000);
             }
             else {
                 id = setInterval(handleSnakeXuyenTuong,time);
