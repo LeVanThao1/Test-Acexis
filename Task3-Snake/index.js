@@ -20,11 +20,6 @@ const canvas = document.querySelector('canvas');
         }
 
         function drawSnake() {
-            snake.body.unshift({x: snake.x, y: snake.y});
-            if(snake.body.length > snake.length) {
-                snake.body.pop();
-            }
-           
             for(let i = 0; i< snake.body.length; i++) {
                 if(i === 0) {
                     ctx.fillStyle = '#1ba3b5';
@@ -131,27 +126,33 @@ const canvas = document.querySelector('canvas');
             ctx.clearRect(0,0,canvas.width,canvas.height);
             drawFood();
             snakeEatFood();
-            
             if(checkEnd()) {
                 alert('Bạn thua rồi .... Ahihi');
                 clearInterval(id);
-                reset()
+                reset();
             }
             else {
                 snake.x += snake.dx;
                 snake.y += snake.dy;
             }
-            
+            snake.body.unshift({x: snake.x, y: snake.y});
+            if(snake.body.length > snake.length) {
+                snake.body.pop();
+            }
             checkBien();
+            
             drawSnake();
             chuyenHuong();
         }
+        const time = 1000;
         function handleSnakeXuyenTuong() {
             ctx.clearRect(0,0,canvas.width,canvas.height);
             drawFood();
-            
-            drawSnake();
             snakeEatFood();
+            snake.body.unshift({x: snake.x, y: snake.y});
+            if(snake.body.length > snake.length) {
+                snake.body.pop();
+            }
             if(checkEnd() || checkNotXuyenTuong()) {
                 alert('Bạn thua rồi .... Ahihi');
                 clearInterval(id);
@@ -162,6 +163,7 @@ const canvas = document.querySelector('canvas');
                 snake.y += snake.dy;
             }
             
+            drawSnake();
             chuyenHuong();
         }
 
@@ -171,9 +173,9 @@ const canvas = document.querySelector('canvas');
             // console.log(xuyentuong.checked);
             isXuyenTuong = xuyentuong.checked;
             if(isXuyenTuong) { 
-                id = setInterval(handleSnake ,1000);
+                id = setInterval(handleSnake,time);
             }
             else {
-                id = setInterval(handleSnakeXuyenTuong,1000);
+                id = setInterval(handleSnakeXuyenTuong,time);
             }
         });
